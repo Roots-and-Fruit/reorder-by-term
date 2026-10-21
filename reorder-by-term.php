@@ -4,12 +4,13 @@ Plugin Name: Reorder by Term
 Plugin URI: https://mattc.link/reorder-by-term
 Description: Reorder Posts by Term
 Version: 1.3.1
-Requires at least: 3.7
+Requires at least: 6.5
 Requires PHP: 7.2
 Author: Roots & Fruit
 Author URI: https://mattc.link/reorder-by-term
 Text Domain: reorder-by-term
 Domain Path: /languages
+Requires Plugins: metronet-reorder-posts
 */
 
 if ( ! defined( 'ABSPATH' ) ) {

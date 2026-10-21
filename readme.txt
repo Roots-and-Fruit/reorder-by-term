@@ -2,7 +2,7 @@
 Contributors: webdevmattcrom
 Author URI: https://mattc.link/reorder-by-term
 Plugin URL: https://wordpress.org/plugins/reorder-by-term/
-Requires at Least: 3.7
+Requires at Least: 6.5
 Tested up to: 7.1
 Tags: reorder, reorder by term, category
 Stable tag: 1.3.1
@@ -88,7 +88,7 @@ Of course, but by the nature of terms, all post structures are flat, regardless 
 
 = Does it work in older versions of WordPress? =
 
-This plugin requires WordPress 3.7 or above.  We urge you, however, to always use the latest version of WordPress.
+This plugin requires WordPress 6.5 or above.  We urge you, however, to always use the latest version of WordPress.
 
 == Screenshots ==
 1.  When first installing the plugin, you'll want to head to `Tools->Build Post Term Data` to add some data to your posts to allow reordering within terms.
