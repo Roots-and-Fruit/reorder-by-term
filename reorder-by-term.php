@@ -3,7 +3,7 @@
 Plugin Name: Reorder by Term
 Plugin URI: https://mattc.link/reorder-by-term
 Description: Reorder Posts by Term
-Version: 1.3.1
+Version: 1.3.2
 Requires at least: 6.5
 Requires PHP: 7.2
 Author: Roots & Fruit
@@ -47,6 +47,8 @@ final class Reorder_By_Term {
 	 */
 	private function __construct() {
 
+		add_action( 'in_plugin_update_message-reorder-by-term/reorder-by-term.php', array( $this, 'plugin_update_message' ), 10, 2 );
+
 		if ( !class_exists( 'MN_Reorder' ) || !defined( 'REORDER_ALLOW_ADDONS' ) || ( false === REORDER_ALLOW_ADDONS ) ) {
 			add_action( 'admin_notices', array( $this, 'output_error_reorder_plugin' ) );//Output error
 			return;
@@ -62,7 +64,7 @@ final class Reorder_By_Term {
 		add_action( 'save_post', array( $this, 'add_custom_fields' ), 10, 2 );
 
 		// Term edits from the block editor and other plugins land after save_post.
-		add_action( 'set_object_terms', array( $this, 'remove_reorder_meta_for_removed_terms' ), 10, 6 );
+		add_action( 'deleted_term_relationships', array( $this, 'remove_reorder_meta_for_removed_terms' ), 10, 3 );
 
 		//For when Updating a Term
 		add_action( 'edit_terms', array( &$this, 'before_update_term' ), 10, 2 );
@@ -75,6 +77,26 @@ final class Reorder_By_Term {
 		add_action( 'admin_init', array( $this, 'reorder_posts_admin_init' ), 12, 1 );
 
 
+	}
+
+	/**
+	 * Shows a note on the Plugins screen update row when the update does not already include an Upgrade Notice from WordPress.org.
+	 *
+	 * @param array  $plugin_data Installed plugin data.
+	 * @param object $response    Update response object.
+	 * @uses in_plugin_update_message-reorder-by-term/reorder-by-term.php WordPress action
+	 */
+	public function plugin_update_message( $plugin_data, $response ) {
+		unset( $plugin_data );
+		if ( is_object( $response ) && ! empty( $response->upgrade_notice ) ) {
+			return;
+		}
+		echo '<br />' . wp_kses(
+			__( '<strong>IMPORTANT:</strong> This update requires that the Reorder Posts plugin be active, and WordPress 6.5 or newer. If either is missing, the plugin cannot be updated or activated until both requirements are met.', 'reorder-by-term' ),
+			array(
+				'strong' => array(),
+			)
+		);
 	}
 
 	/**
@@ -163,19 +185,14 @@ final class Reorder_By_Term {
 	 * Deletes reorder meta when a post loses a term.
 	 *
 	 * The block editor and other plugins can change terms after save_post.
-	 * This runs when the term relationship itself is saved.
+	 * This runs when the term relationship itself is deleted.
 	 *
-	 * @param int    $object_id  Object ID.
-	 * @param array  $terms      Terms passed to wp_set_object_terms. Unused.
-	 * @param array  $tt_ids     New term taxonomy IDs.
-	 * @param string $taxonomy   Taxonomy slug.
-	 * @param bool   $append     Whether terms were appended. Unused.
-	 * @param array  $old_tt_ids Previous term taxonomy IDs.
-	 * @uses set_object_terms WordPress action
+	 * @param int    $object_id Object ID.
+	 * @param array  $tt_ids    Deleted term taxonomy IDs.
+	 * @param string $taxonomy  Taxonomy slug.
+	 * @uses deleted_term_relationships WordPress action
 	 */
-	public function remove_reorder_meta_for_removed_terms( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
-		unset( $terms, $append );
-
+	public function remove_reorder_meta_for_removed_terms( $object_id, $tt_ids, $taxonomy ) {
 		$taxonomy_object = get_taxonomy( $taxonomy );
 		if ( ! is_object( $taxonomy_object ) || empty( $taxonomy_object->object_type ) ) {
 			return;
@@ -186,8 +203,7 @@ final class Reorder_By_Term {
 			return;
 		}
 
-		$removed = array_diff( (array) $old_tt_ids, (array) $tt_ids );
-		foreach ( $removed as $tt_id ) {
+		foreach ( (array) $tt_ids as $tt_id ) {
 			$term = get_term_by( 'term_taxonomy_id', (int) $tt_id );
 			if ( ! is_object( $term ) ) {
 				continue;

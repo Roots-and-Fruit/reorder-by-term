@@ -3,6 +3,9 @@
 .gitignore
 .distignore
 
+package.json
+package-lock.json
+
 *.md
 *.zip
 

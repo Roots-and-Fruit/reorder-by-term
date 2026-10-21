@@ -5,7 +5,7 @@ Plugin URL: https://wordpress.org/plugins/reorder-by-term/
 Requires at Least: 6.5
 Tested up to: 7.1
 Tags: reorder, reorder by term, category
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://mediaron.com/contribute/
@@ -47,7 +47,6 @@ You are welcome to help us out and <a href="https://github.com/ronalfy/reorder-b
 <h3>Support</h3>
 
 Please feel free to leave a support request here or create an <a href="https://github.com/ronalfy/reorder-by-term/issues">issue on GitHub</a>.  If you require immediate feedback, feel free to @reply me on Twitter with your support link:  <a href="https://twitter.com/ronalfy">@ronalfy</a>.  Support is always free unless you require some advanced customization out of the scope of the plugin's existing features.   Please rate/review the plugin if we have helped you to show thanks for the support.
-
 
 == Installation ==
 
@@ -100,38 +99,59 @@ This plugin requires WordPress 6.5 or above.  We urge you, however, to always us
 
 == Changelog ==
 
+= 1.3.2 =
+Released 2026-10-21.
+
+**Changed**
+
+* **Breaking:** Reorder by Term now requires Reorder Posts, and WordPress 6.5 or newer. WordPress will not activate it on its own. An already active copy is deactivated on the next admin load when Reorder Posts is inactive.
+
+**Fixed**
+
+* A post that loses a term no longer keeps that term's reorder field. It drops out of the Reorder by Term list, and out of a query for that field, when the post is saved or its terms change.
+
 = 1.3.1 =
-* Released 2026-03-23
+Released 2026-03-23.
+
 * Fixed order reset issue when saving posts.
 
 = 1.3.0 =
-* Released 2025-02-15
+Released 2025-02-15.
+
 * Fixing "term builder" where building terms often resulted in a mismatch, preventing reordering.
 * Resolving PHP fatal error when loading the plugin.
 
 = 1.2.3 =
-* Released 2019-02-16
+Released 2019-02-16.
+
 * Updating terms query in the back-end for better usability
 
 = 1.2.2 =
-* Released 2016-08-14
+Released 2016-08-14.
+
 * Major CSS overhaul
 
 = 1.2.0 =
-* Released 2016-08-12
+Released 2016-08-12.
+
 * Added screen options to set posts per page
 
 = 1.1.0 =
-* Released 2016-08-08
+Released 2016-08-08.
+
 * Added option in `Settings->Reorder Posts` to disable the term query from displaying.
 * Added better support for the post object.
 
 = 1.0.0 =
+Released 2015-01-27.
+
 * Updated 2015-04-25 - Ensuring WordPress 4.2 compatibility
-* Released 2015-01-27
-* Initial Release.  Feedback is much appreciated!
+* Initial Release. Feedback is much appreciated!
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+IMPORTANT: This update requires that the Reorder Posts plugin be active, and WordPress 6.5 or newer. If either is missing, the plugin cannot be updated or activated until both requirements are met.
 
 = 1.3.1 =
 Fixed order reset issue when saving posts.

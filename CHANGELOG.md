@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-10-21
+
 ### Changed
 
 - **Breaking:** Reorder by Term now requires Reorder Posts, and WordPress 6.5 or newer. WordPress will not activate it on its own. An already active copy is deactivated on the next admin load when Reorder Posts is inactive.
@@ -46,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated 2015-04-25 - Ensuring WordPress 4.2 compatibility
 - Initial Release. Feedback is much appreciated!
 
-[Unreleased]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.3.1...HEAD
+[Unreleased]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.3.2...HEAD
+[1.3.2]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.2.2...1.3.1
 [1.2.2]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.2.0...1.2.2
 [1.2.0]: https://github.com/Roots-and-Fruit/reorder-by-term/compare/1.1.0...1.2.0
