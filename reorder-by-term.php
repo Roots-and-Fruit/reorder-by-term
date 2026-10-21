@@ -61,6 +61,9 @@ final class Reorder_By_Term {
 		//Add post save action
 		add_action( 'save_post', array( $this, 'add_custom_fields' ), 10, 2 );
 
+		// Term edits from the block editor and other plugins land after save_post.
+		add_action( 'set_object_terms', array( $this, 'remove_reorder_meta_for_removed_terms' ), 10, 6 );
+
 		//For when Updating a Term
 		add_action( 'edit_terms', array( &$this, 'before_update_term' ), 10, 2 );
 		add_action( 'edited_term', array( &$this, 'after_update_term' ), 10, 3 );
@@ -157,6 +160,43 @@ final class Reorder_By_Term {
 	} //end after_update_term
 
 	/**
+	 * Deletes reorder meta when a post loses a term.
+	 *
+	 * The block editor and other plugins can change terms after save_post.
+	 * This runs when the term relationship itself is saved.
+	 *
+	 * @param int    $object_id  Object ID.
+	 * @param array  $terms      Terms passed to wp_set_object_terms. Unused.
+	 * @param array  $tt_ids     New term taxonomy IDs.
+	 * @param string $taxonomy   Taxonomy slug.
+	 * @param bool   $append     Whether terms were appended. Unused.
+	 * @param array  $old_tt_ids Previous term taxonomy IDs.
+	 * @uses set_object_terms WordPress action
+	 */
+	public function remove_reorder_meta_for_removed_terms( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ) {
+		unset( $terms, $append );
+
+		$taxonomy_object = get_taxonomy( $taxonomy );
+		if ( ! is_object( $taxonomy_object ) || empty( $taxonomy_object->object_type ) ) {
+			return;
+		}
+
+		$post = get_post( $object_id );
+		if ( ! is_object( $post ) || ! in_array( $post->post_type, (array) $taxonomy_object->object_type, true ) ) {
+			return;
+		}
+
+		$removed = array_diff( (array) $old_tt_ids, (array) $tt_ids );
+		foreach ( $removed as $tt_id ) {
+			$term = get_term_by( 'term_taxonomy_id', (int) $tt_id );
+			if ( ! is_object( $term ) ) {
+				continue;
+			}
+			delete_post_meta( $object_id, sprintf( '_reorder_term_%s_%s', $term->taxonomy, $term->slug ) );
+		}
+	}
+
+	/**
 	 * Saves plugin's custom fields with menu order
 	 *
 	 * @author Ronald Huereca <ronalfy@gmail.com>
@@ -205,10 +245,10 @@ final class Reorder_By_Term {
 
 		//Loop through custom fields and see if it exists in our save array - if not, remove the post meta key
 		foreach( $custom_fields as $key => $custom_field ) {
-			// Make sure custom field is a string before checking it's string position and array status.
-			if ( is_string( $custom_field ) && strpos( $custom_field, '_reorder_term_' ) === 0 ) {
-				if ( ! in_array( $custom_field, $custom_field_terms ) ) {
-					delete_post_meta( $post_id, $custom_field );
+			// Meta values are arrays. Match the key so another plugin's values cannot skip this loop.
+			if ( is_string( $key ) && strpos( $key, '_reorder_term_' ) === 0 ) {
+				if ( ! in_array( $key, $custom_field_terms ) ) {
+					delete_post_meta( $post_id, $key );
 					unset( $custom_fields[ $key ] );
 				}
 			}

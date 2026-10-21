@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Breaking:** Reorder by Term now requires Reorder Posts, and WordPress 6.5 or newer. WordPress will not activate it on its own. An already active copy is deactivated on the next admin load when Reorder Posts is inactive.
 
+### Fixed
+
+- A post that loses a term no longer keeps that term's reorder field. It drops out of the Reorder by Term list, and out of a query for that field, when the post is saved or its terms change.
+
 ## [1.3.1] - 2026-03-23
 
 - Fixed order reset issue when saving posts.
