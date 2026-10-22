@@ -5,7 +5,7 @@ Plugin URL: https://wordpress.org/plugins/reorder-by-term/
 Requires at Least: 6.5
 Tested up to: 7.1
 Tags: reorder, reorder by term, category
-Stable tag: 1.3.2
+Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
