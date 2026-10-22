@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- GitHub releases take their notes from this changelog. A version bump on master publishes the zip.
 - The readme contribution, issue, and usage links open the Roots & Fruit repository. The Twitter reply is @learnwithmattc.
 
 ### Removed
