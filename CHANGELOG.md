@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The readme contribution, issue, and usage links open the Roots & Fruit repository. The Twitter reply is @learnwithmattc.
+
+### Removed
+
+- The donate link.
+
 ## [1.3.2] - 2026-10-21
 
 ### Changed

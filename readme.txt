@@ -8,7 +8,6 @@ Tags: reorder, reorder by term, category
 Stable tag: 1.3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Donate link: https://mediaron.com/contribute/
 
 A simple and easy way to reorder your custom post types within terms in WordPress.
 
@@ -42,11 +41,11 @@ If you like this plugin, please help spread the word.  Rate the plugin.  Write a
 
  Development happens on GitHub.
 
-You are welcome to help us out and <a href="https://github.com/ronalfy/reorder-by-term">contribute on GitHub</a>.
+You are welcome to help us out and <a href="https://mattc.link/reorder-by-term-github">contribute on GitHub</a>.
 
 <h3>Support</h3>
 
-Please feel free to leave a support request here or create an <a href="https://github.com/ronalfy/reorder-by-term/issues">issue on GitHub</a>.  If you require immediate feedback, feel free to @reply me on Twitter with your support link:  <a href="https://twitter.com/ronalfy">@ronalfy</a>.  Support is always free unless you require some advanced customization out of the scope of the plugin's existing features.   Please rate/review the plugin if we have helped you to show thanks for the support.
+Please feel free to leave a support request here or create an <a href="https://mattc.link/reorder-by-term-issues">issue on GitHub</a>.  If you require immediate feedback, feel free to @reply me on Twitter with your support link:  <a href="https://mattc.link/x">@learnwithmattc</a>.  Support is always free unless you require some advanced customization out of the scope of the plugin's existing features.   Please rate/review the plugin if we have helped you to show thanks for the support.
 
 == Installation ==
 
@@ -63,7 +62,7 @@ Please note that this plugin <strong>does not</strong> change the order of items
 
 You'll want to make use of <a href="http://codex.wordpress.org/Class_Reference/WP_Query">WP_Query</a>, <a href="http://codex.wordpress.org/Template_Tags/get_posts">get_posts</a>, or <a href="http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts">pre_get_posts</a> to modify query behavior on the front-end of your site.
 
-<a href="https://github.com/ronalfy/reorder-by-term#usage">See usage for some examples.</a>
+<a href="https://mattc.link/reorder-by-term-usage">See usage for some examples.</a>
 
 == Frequently Asked Questions ==
 
